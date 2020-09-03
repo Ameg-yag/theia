@@ -84,6 +84,7 @@ import type {
     TimelineChangeEvent,
     TimelineProviderDescriptor
 } from '@theia/timeline/lib/common/timeline-model';
+import { EnvVariable } from '@theia/core/lib/common/env-variables';
 
 export interface PreferenceData {
     [scope: number]: any;
@@ -242,6 +243,7 @@ export interface TerminalServiceExt {
     $terminalOnInput(id: string, data: string): void;
     $terminalSizeChanged(id: string, cols: number, rows: number): void;
     $currentTerminalChanged(id: string | undefined): void;
+    $initEnvironmentVariableCollections(pluginId: string, collection: EnvVariable[]): void;
 }
 export interface OutputChannelRegistryExt {
     createOutputChannel(name: string, pluginInfo: PluginInfo): theia.OutputChannel

@@ -22,6 +22,7 @@ import { TerminalService } from '@theia/terminal/lib/browser/base/terminal-servi
 import { TerminalServiceMain, TerminalServiceExt, MAIN_RPC_CONTEXT } from '../../common/plugin-api-rpc';
 import { RPCProtocol } from '../../common/rpc-protocol';
 import { Disposable, DisposableCollection } from '@theia/core/lib/common/disposable';
+import { EnvVariablesServer } from '@theia/core/lib/common/env-variables';
 
 /**
  * Plugin api service allows working with terminal emulator.
@@ -44,6 +45,10 @@ export class TerminalServiceMainImpl implements TerminalServiceMain, Disposable 
         }
         this.toDispose.push(this.terminals.onDidChangeCurrentTerminal(() => this.updateCurrentTerminal()));
         this.updateCurrentTerminal();
+        const envVariableServer: EnvVariablesServer = container.get(EnvVariablesServer);
+        envVariableServer.getVariables().then(variables => {
+            this.extProxy.$initEnvironmentVariableCollections(
+        });
     }
 
     dispose(): void {
